@@ -1,0 +1,3 @@
+include DATA/*.p
+include INPUT/*.csv
+include OUT/*.*
