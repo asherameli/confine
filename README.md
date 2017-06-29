@@ -1,5 +1,4 @@
 # confine
-Metadata-Version: 1.0
 Name: confine
 Version: 1
 Summary: identifying disease module
@@ -7,6 +6,8 @@ Home-page: https://github.com/asherameli/confine
 Author: Asher Ameli
 Author-email: aameli@bwh.harvard.edu
 License: SharmaLab - Channing Division of Network Medicine
+---------------------------------------------------------
+
 Description: TO INSTALL:
         1. on terminal, find the directory where the package is located.
         2. pip install .
