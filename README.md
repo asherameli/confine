@@ -3,7 +3,6 @@ Name: confine
 Version: 1
 Summary: identifying disease module
 Home-page: https://github.com/asherameli/confine
-Author: Asher Ameli
 Author-email: aameli@bwh.harvard.edu
 License: SharmaLab - Channing Division of Network Medicine
 ---------------------------------------------------------
