@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 import pickle
-LCC_Zscore= pickle.load(open('DATA/LCC_Zscore_10k.p', 'r' ))
+LCC_Zscore= pickle.load(open('confine/NET/LCC_Zscore_10k.p', 'r' ))
 import copy
 
 def CONFINE(*args):
@@ -72,7 +72,6 @@ def CONFINE(*args):
     g_sig = nx.subgraph(G, sig_genes)
     Clusters= sorted(list(nx.connected_component_subgraphs(g_sig)), key=len, reverse=True)
     sig_Cluster_LCC=Clusters[0]
-    #if UnboundLocalError:print 'Try smaller LCC size'
 
     result=[z_list,pval_cut_list,sig_Cluster_LCC,id_sig]
     return result

@@ -1,10 +1,16 @@
-def run():
+def run(*args):
 
-    dir_in='INPUT'
-    f = str(raw_input("Enter your file name located at INPUT folder: "))
-    print "You entered: ------", str(f),' ------'
-    lcc_min = int(raw_input("Enter the minimum size of LCC, we recommend a number between 30 and 50: "))
-    lcc_max = int(raw_input("Enter the maximum size of LCC, we recommend a number between 300 and 500: "))
+    if args[0]=='test':
+        dir_in = 'confine/TEST/test.csv'
+        f = 'test'
+        lcc_min = 50
+        lcc_max = 350
+    else:
+        f=args[0]
+        dir_in=str(raw_input("Where the file is located in? "))
+        print "You entered: ------", str(f),' ------'
+        lcc_min = int(raw_input("Enter the minimum size of LCC, we recommend a number between 30 and 50: "))
+        lcc_max = int(raw_input("Enter the maximum size of LCC, we recommend a number between 300 and 500: "))
     print '.....loading data.....'
 
     import os
@@ -13,12 +19,11 @@ def run():
     import time
     start_time = time.time()
 
-    id_to_sym = pickle.load(open("DATA/id_to_sym_human.p", "r" ))
+    id_to_sym = pickle.load(open("confine/NET/id_to_sym_human.p", "r" ))
 
-    # ------- Read data and keep pval<0.05 and then convert gene name to gene ID ---------
-    G = pickle.load(open("DATA/PPI_2015_raw.p", "r" ))
-    full_path = os.path.join(dir_in, f)
-    file = open(full_path, "r")
+    G = pickle.load(open("confine/NET/PPI_2015_raw.p", "r" ))
+
+    file = open(dir_in, "r")
     initial_data = file.read().splitlines()
     file.close()
 
@@ -47,12 +52,16 @@ def run():
     sig_Cluster_LCC=result[2]
     z_score=z_list[result[3]]
     p_val_cut=pval_cut_list[result[3]]
+
+    print '--------------------'
     print 'LCC size: ',len(sig_Cluster_LCC.nodes())
     print 'Z-score: ',z_score
     print 'P.val cut-off: ',p_val_cut
+    print '--------------------'
 
-    output_name=f.split('.')[0]
-    b=open('OUT/LCC_'+output_name+'.txt',"w")
+    directory_name=f+'_'+str(time.time())
+    if not os.path.exists(directory_name):os.makedirs(directory_name)
+    b=open(directory_name+'/LCC_'+f+'.txt',"w")
     for node in sig_Cluster_LCC.nodes():
         try:
             print>> b, str(id_to_sym[int(node)])+','+ str(int(node))
@@ -64,7 +73,6 @@ def run():
     from pylab import plt, matplotlib
     fig=plt.figure(figsize=(10,10))
     ax = fig.add_subplot(111)
-
     #----------------------------------------------------plotting--------
 
     plt.style.use('ggplot')
@@ -80,5 +88,5 @@ def run():
 
     font = {'family' : 'Helvetica', 'weight' : 'bold', 'size'   : 20}
     matplotlib.rc('font', **font)
-    plt.savefig('OUT/'+output_name+'.png',dpi=150,bbox_inches='tight'); plt.close()
+    plt.savefig(directory_name+'/'+f+'.png',dpi=150,bbox_inches='tight'); plt.close()
     print("--- %s seconds ---" % (time.time() - start_time))

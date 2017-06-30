@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='confine',
-      version='01',
+      version='6.17',
       description='identifying disease module',
       url='https://github.com/asherameli/confine',
       author='Asher Ameli',
@@ -9,6 +9,4 @@ setup(name='confine',
       license='SharmaLab - Channing Division of Network Medicine',
       packages=['confine'],
       zip_safe=False,
-      include_package_data = True,
-      long_description=open('read_ME.txt').read())
-
+      include_package_data = True)
