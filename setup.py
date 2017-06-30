@@ -1,7 +1,8 @@
 from setuptools import setup
 
 setup(name='confine',
-      version='6.17',
+
+      version='17.7',
       description='identifying disease module',
       url='https://github.com/asherameli/confine',
       author='Asher Ameli',

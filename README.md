@@ -1,6 +1,23 @@
+To better use the package install "pip" and "python 2.7"
+
 TO INSTALL:
 sudo pip install confine
 
+
+PACKAGE REQUIREMENTS:
+The code can install all required packages for you.
+1. pickle
+2. networkx
+3. os
+4. time
+5. pylab
+6. pkg_resources
+
+To INSTALL PACKAGES:
+
+1. call python
+2. import confine
+3. confine.check()
 
 To TEST:
 1. call python
@@ -18,6 +35,7 @@ OUTPUTS:
 1. a text file that includes gene id and gene symbol of LCC.
 2. a png file that shows how the significance of LCC varies with P.value cut-off 
 over LCC thresholds given by user.
+directory: Outputs are being generated at directory where the user is running python
 
 
 TO RUN:

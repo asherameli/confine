@@ -1,7 +1,8 @@
 def run(*args):
-
+    import pkg_resources
     if args[0]=='test':
-        dir_in = 'confine/TEST/test.csv'
+        TEST_PATH = pkg_resources.resource_filename('confine', 'TEST/')
+        dir_in = TEST_PATH+'test.csv'
         f = 'test'
         lcc_min = 50
         lcc_max = 350
@@ -15,13 +16,15 @@ def run(*args):
 
     import os
     import pickle
-    import numpy as np
     import time
     start_time = time.time()
 
-    id_to_sym = pickle.load(open("confine/NET/id_to_sym_human.p", "r" ))
 
-    G = pickle.load(open("confine/NET/PPI_2015_raw.p", "r" ))
+
+    NET_PATH = pkg_resources.resource_filename('confine', 'NET/')
+    id_to_sym = pickle.load(open(NET_PATH +'id_to_sym_human.p', 'r' ))
+
+    G = pickle.load(open(NET_PATH+'PPI_2015_raw.p', 'r' ))
 
     file = open(dir_in, "r")
     initial_data = file.read().splitlines()
@@ -75,18 +78,31 @@ def run(*args):
     ax = fig.add_subplot(111)
     #----------------------------------------------------plotting--------
 
-    plt.style.use('ggplot')
-    plt.rcParams['text.usetex'] = True
 
     ax.plot(pval_cut_list,z_list,'o',color='saddlebrown',markersize=4)
     plt.axvline(x=p_val_cut, color='r', linestyle='--')
-    ax.set_xlabel('$\mathbf{P.value \ \ cut-off}$',fontsize=30,fontweight='bold',labelpad=18)
-    ax.set_ylabel('$\mathbf{Z-Score}$',fontsize=30,fontweight='bold', labelpad=18)
-    ax.set_title('$\mathbf{LCC}$'+' = '+str(len(sig_Cluster_LCC.nodes()))+'   ,'+'$\mathbf{Z-Score}$'+' = '+str("{0:.3f}".format(round(z_score,4))))
+    ax.set_xlabel('P.value cut-off',fontsize=25,fontweight='bold',labelpad=18)
+    ax.set_ylabel('Z-Score',fontsize=25,fontweight='bold', labelpad=18)
+    ax.set_title('LCC'+' = '+str(len(sig_Cluster_LCC.nodes()))+'   ,'+' Z-Score'+' = '+str("{0:.3f}".format(round(z_score,4))),
+                 fontsize=20, fontweight='bold')
     ax.grid(True)
     plt.ylim(min(z_list)-min(z_list)/5,max(z_list)+max(z_list)/3)
 
-    font = {'family' : 'Helvetica', 'weight' : 'bold', 'size'   : 20}
-    matplotlib.rc('font', **font)
     plt.savefig(directory_name+'/'+f+'.png',dpi=150,bbox_inches='tight'); plt.close()
     print("--- %s seconds ---" % (time.time() - start_time))
+
+def check():
+
+    list=['pip','pickle','networkx','os','time','pylab','pkg_resources']
+
+
+    for p in list:
+
+        try:
+
+            __import__(p)
+            print p, 'is installed'
+            import pip
+
+        except ImportError:
+            pip.main(['install', p])

@@ -1,7 +1,9 @@
 import networkx as nx
-import numpy as np
 import pickle
-LCC_Zscore= pickle.load(open('confine/NET/LCC_Zscore_10k.p', 'r' ))
+import pkg_resources
+
+LCC_PATH = pkg_resources.resource_filename('confine', 'NET/')
+LCC_Zscore= pickle.load(open(LCC_PATH+'LCC_Zscore_10k.p', 'r' ))
 import copy
 
 def CONFINE(*args):
