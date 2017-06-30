@@ -1,3 +1,5 @@
+License: SharmaLab - Channing Division of Network Medicine
+
 To better use the package install "pip" and "python 2.7"
 
 TO INSTALL:
